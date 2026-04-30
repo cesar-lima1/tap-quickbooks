@@ -108,6 +108,8 @@ class BaseMonthlyReportStream(QuickbooksStream):
             "end_date": end_date.strftime("%Y-%m-%d"),
             "accounting_method": "Accrual",
         }
+        if getattr(self, "pnl_adjusted_gain_loss", None):
+            params["adjusted_gain_loss"] = "true"
         LOGGER.info(f"Fetch {log_name} point-in-time for {params['start_date']} to {params['end_date']}")
 
         try:
@@ -179,6 +181,8 @@ class BaseMonthlyReportStream(QuickbooksStream):
             "accounting_method": "Accrual",
             "summarize_column_by": "Month",
         }
+        if getattr(self, "pnl_adjusted_gain_loss", None):
+            params["adjusted_gain_loss"] = "true"
         LOGGER.info(f"Fetch {log_name} Report for period {params['start_date']} to {params['end_date']}")
 
         try:
